@@ -1,6 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetValue<string>("ConnectionString");
+builder.Services.AddDbContext<>(options =>
+{
+    options.UseSqlite(connectionString);
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
