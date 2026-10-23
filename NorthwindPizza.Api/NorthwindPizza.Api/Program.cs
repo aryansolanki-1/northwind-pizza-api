@@ -1,8 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using NorthwindPizza.Api.DAL.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetValue<string>("ConnectionString");
-builder.Services.AddDbContext<>(options =>
+builder.Services.AddDbContext<NorthwindPizzaContext>(options =>
 {
     options.UseSqlite(connectionString);
 });
