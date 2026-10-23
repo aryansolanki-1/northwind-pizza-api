@@ -1,17 +1,16 @@
-﻿namespace NorthwindPizza.Api.DAL.Models
+﻿namespace NorthwindPizza.Api.DAL.Models;
+
+public partial class Customer
 {
-    public partial class Customer
-    {
-        public int CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
-        public string FirstName { get; set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
 
-        public string LastName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
 
-        public string Email { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
-        public string Phone { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
 
-        public string CreatedAt { get; set; } = string.Empty;
-    }
+    public string CreatedAt { get; set; } = string.Empty;
 }

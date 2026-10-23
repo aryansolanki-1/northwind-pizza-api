@@ -1,11 +1,10 @@
-﻿namespace NorthwindPizza.Api.DAL.Models
+﻿namespace NorthwindPizza.Api.DAL.Models;
+
+public partial class AppSetting
 {
-    public partial class AppSetting
-    {
-        public int SettingId { get; set; }
+    public int SettingId { get; set; }
 
-        public string SettingKey { get; set; } = string.Empty;
+    public string SettingKey { get; set; } = string.Empty;
 
-        public string SettingValue { get; set; } = string.Empty;
-    }
+    public string SettingValue { get; set; } = string.Empty;
 }

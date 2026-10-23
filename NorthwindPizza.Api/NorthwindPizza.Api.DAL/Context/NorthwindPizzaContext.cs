@@ -25,5 +25,35 @@ public partial class NorthwindPizzaContext(DbContextOptions<NorthwindPizzaContex
         {
             entity.HasKey(e => e.SettingId);
         });
+
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.HasKey(e => e.CustomerId);
+        });
+
+        modelBuilder.Entity<Employee>(entity =>
+        {
+            entity.HasKey(e => e.EmployeeId);
+        });
+
+        modelBuilder.Entity<OrderItem>(entity =>
+        {
+            entity.HasKey(e => e.OrderItemId);
+        });
+
+        modelBuilder.Entity<OrderStatus>(entity =>
+        {
+            entity.HasKey(e => e.OrderStatusId);
+        });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.OrderId);
+        });
+
+        modelBuilder.Entity<Pizza>(entity =>
+        {
+            entity.HasKey(e => e.PizzaId);
+        });
     }
 }
