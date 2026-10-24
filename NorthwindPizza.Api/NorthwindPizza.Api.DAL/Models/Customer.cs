@@ -10,7 +10,7 @@ public partial class Customer
 
     public string Email { get; set; } = string.Empty;
 
-    public string Phone { get; set; } = string.Empty;
+    public string? Phone { get; set; }
 
     public string CreatedAt { get; set; } = string.Empty;
 }
