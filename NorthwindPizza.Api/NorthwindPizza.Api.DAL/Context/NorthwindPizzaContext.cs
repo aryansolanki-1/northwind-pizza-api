@@ -160,11 +160,40 @@ public partial class NorthwindPizzaContext(DbContextOptions<NorthwindPizzaContex
         /* 
          * Employees 
          */
-        modelBuilder.Entity<Employee>(entity => { });
+        modelBuilder.Entity<Employee>(entity => 
+        {
+            entity.ToTable("Employees", table =>
+            {
+                table.HasCheckConstraint(
+                    "CK_Employess_IsActive",
+                    "IsActive IN (0, 1)");
+            });
+
+            entity.HasKey(e => e.EmployeeId);
+
+            entity.Property(e => e.FirstName).IsRequired();
+
+            entity.Property(e => e.LastName).IsRequired();
+
+            entity.Property(e => e.Email).IsRequired();
+
+            entity.Property(e => e.Role).IsRequired().HasDefaultValue("Employee");
+
+            entity.Property(e => e.IsActive).IsRequired().HasDefaultValue(1);
+        });
 
         /*
          * AppSettings
          */
-        modelBuilder.Entity<AppSetting>(entity => { });
+        modelBuilder.Entity<AppSetting>(entity => 
+        {
+            entity.ToTable("AppSettings");
+
+            entity.HasKey(e => e.SettingId);
+
+            entity.Property(e => e.SettingKey).IsRequired();
+
+            entity.Property(e => e.SettingValue).IsRequired(false);
+        });
     }
 }
