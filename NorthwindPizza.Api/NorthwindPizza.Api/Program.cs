@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NorthwindPizza.Api.DAL.Context;
+using NorthwindPizza.Api.DAL.Repository;
+using NorthwindPizza.Api.DAL.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Services.AddDbContext<NorthwindPizzaContext>(options =>
 {
     options.UseSqlite(connectionString);
 });
+
+builder.Services.AddTransient<IOrderStatusRepository, OrderStatusRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
