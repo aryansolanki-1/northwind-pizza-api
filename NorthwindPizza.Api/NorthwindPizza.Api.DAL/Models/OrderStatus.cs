@@ -12,3 +12,18 @@ public partial class OrderStatus
 
     public int IsActive { get; set; }
 }
+
+public static class OrderStatusExtensions
+{
+    public static DTO.Models.OrderStatus ToDto(this OrderStatus value)
+    {
+        return new DTO.Models.OrderStatus
+        {
+            Id = value.OrderStatusId,
+            Name = value.Name,
+            Description = value.Description,
+            DisplayOrder = value.DisplayOrder,
+            IsActive = value.IsActive == 1
+        };
+    }
+}
