@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 using NorthwindPizza.Api.DAL.Context;
 using NorthwindPizza.Api.DAL.Repository;
 using NorthwindPizza.Api.DAL.Repository.Interfaces;
@@ -23,7 +24,42 @@ builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi(opts => opts.AddScalarTransformers());
+builder.Services.AddOpenApi(opts => {
+    opts.AddScalarTransformers();
+    opts.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        var tagDescriptions = new Dictionary<string, string>
+        {
+            ["Planets"] = "Everything about planets",
+            ["Order Status"] = "The endpoint collection about the Order Status entity.",
+            ["Customers"] = "Everything about customers"
+        };
+
+
+        foreach (var tag in tagDescriptions)
+        {
+            var existingTag = document.Tags?
+                .FirstOrDefault(t => t.Name == tag.Key);
+
+            if (existingTag is not null)
+            {
+                // The tag already exists, so update its description.
+                existingTag.Description = tag.Value;
+            }
+            else
+            {
+                document!.Tags!.Add(new OpenApiTag
+                {
+                    Name = tag.Key,
+                    Description = tag.Value
+                });
+            }
+        }
+
+
+        return Task.CompletedTask;
+    });
+});
 
 var app = builder.Build();
 

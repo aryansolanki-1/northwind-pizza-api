@@ -2,6 +2,7 @@
 using NorthwindPizza.Api.DAL.Models;
 using NorthwindPizza.Api.DAL.Repository.Interfaces;
 using NorthwindPizza.Api.DTO.Response;
+using System.ComponentModel;
 
 namespace NorthwindPizza.Api.Controllers;
 
@@ -12,6 +13,7 @@ namespace NorthwindPizza.Api.Controllers;
 /// <param name="logger">The relevant logging mechanism injection.</param>
 [ApiController]
 [Route("api/[controller]")]
+[Tags("Order Status")]
 public class OrderStatusController(IOrderStatusRepository orderStatusRepo, ILogger<OrderStatusController> logger) 
     : ControllerBase
 {
