@@ -30,16 +30,16 @@ builder.Services.AddOpenApi(opts => {
     {
         var tagDescriptions = new Dictionary<string, string>
         {
-            ["Planets"] = "Everything about planets",
+            ["Pizzas"] = "The endpoint collection about the Pizza entity.",
             ["Order Status"] = "The endpoint collection about the Order Status entity.",
-            ["Customers"] = "Everything about customers"
+            ["Customers"] = "The endpoint collection about the Customer entity.",
+            ["Employees"] = "The enpoint collection about the Employee entity.",
+            ["Orders"] = "The endpoint collection about the Order entity."
         };
-
 
         foreach (var tag in tagDescriptions)
         {
-            var existingTag = document.Tags?
-                .FirstOrDefault(t => t.Name == tag.Key);
+            var existingTag = document.Tags?.FirstOrDefault(t => t.Name == tag.Key);
 
             if (existingTag is not null)
             {
