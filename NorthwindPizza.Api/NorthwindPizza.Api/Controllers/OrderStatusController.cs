@@ -5,6 +5,11 @@ using NorthwindPizza.Api.DTO.Response;
 
 namespace NorthwindPizza.Api.Controllers;
 
+/// <summary>
+/// This controller contains endpoints for the Order Status.
+/// </summary>
+/// <param name="orderStatusRepo">The relevant order status repository injection.</param>
+/// <param name="logger">The relevant logging mechanism injection.</param>
 [ApiController]
 [Route("api/[controller]")]
 public class OrderStatusController(IOrderStatusRepository orderStatusRepo, ILogger<OrderStatusController> logger) 
@@ -14,6 +19,13 @@ public class OrderStatusController(IOrderStatusRepository orderStatusRepo, ILogg
 
     private readonly IOrderStatusRepository orderStatusRepo = orderStatusRepo;
 
+    /// <summary>
+    /// This endpoint will get all of the order statuses from the database.
+    /// </summary>
+    /// <returns>
+    /// A unit of execution that contains a type of <see cref="ActionResult{TValue}"/> that contains a type of
+    /// <see cref="GetOrderStatusesResponse"/>.
+    /// </returns>
     [HttpGet("GetOrderStatuses")]
     public async Task<ActionResult<GetOrderStatusesResponse>> GetAllOrderStatusesAsync()
     {
@@ -32,6 +44,14 @@ public class OrderStatusController(IOrderStatusRepository orderStatusRepo, ILogg
         });
     }
 
+    /// <summary>
+    /// This endpoint will get a single order status from the database.
+    /// </summary>
+    /// <param name="id">The relevant primary key of the order status.</param>
+    /// <returns>
+    /// A unit of execution that contains a type of <see cref="ActionResult{TValue}"/> which contains a type of
+    /// <see cref="GetOrderStatusResponse"/>.
+    /// </returns>
     [HttpGet("GetOrderStatus/{id}")]
     public async Task<ActionResult<GetOrderStatusResponse>> GetOrderStatusByIdAsync([FromRoute] int id)
     {

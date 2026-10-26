@@ -23,7 +23,7 @@ builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(opts => opts.AddScalarTransformers());
 
 var app = builder.Build();
 
