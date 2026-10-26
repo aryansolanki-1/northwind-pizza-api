@@ -21,6 +21,9 @@ public static class OrderStatusExtensions
         {
             Id = value.OrderStatusId,
             Name = value.Name,
+            Description = value.Description,
+            DisplayOrder = value.DisplayOrder,
+            IsActive = value.IsActive == 1
         };
     }
 }
