@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NorthwindPizza.Api.DTO\NorthwindPizza.Api.DTO.csproj" />
+  </ItemGroup>
+
 </Project>

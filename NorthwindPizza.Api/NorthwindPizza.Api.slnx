@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="NorthwindPizza.Api.DAL/NorthwindPizza.Api.DAL.csproj" Id="f5801d34-6616-42cc-a633-8dca8175c9e6" />
+  <Project Path="NorthwindPizza.Api.DTO/NorthwindPizza.Api.DTO.csproj" Id="036f779a-0b4e-4b11-8bb6-2cb6bf08a64a" />
   <Project Path="NorthwindPizza.Api/NorthwindPizza.Api.csproj" />
-  <Project Path="NortwindPizza.API.DTO/NortwindPizza.API.DTO.csproj" Id="0bbb57f7-4a65-4b5d-942c-83b8d308c804" />
 </Solution>
