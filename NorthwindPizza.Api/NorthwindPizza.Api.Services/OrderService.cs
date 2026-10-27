@@ -1,7 +1,5 @@
 ﻿using NorthwindPizza.Api.DAL.Models;
-using NorthwindPizza.Api.DAL.Repository;
 using NorthwindPizza.Api.DAL.Repository.Interfaces;
-using NorthwindPizza.Api.DTO.Models;
 using NorthwindPizza.Api.DTO.Request;
 using NorthwindPizza.Api.Services.Interfaces;
 
