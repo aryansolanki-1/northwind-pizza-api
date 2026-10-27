@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NorthwindPizza.Api.DAL\NorthwindPizza.Api.DAL.csproj" />
+    <ProjectReference Include="..\NorthwindPizza.Api.Services\NorthwindPizza.Api.Services.csproj" />
   </ItemGroup>
 
 </Project>

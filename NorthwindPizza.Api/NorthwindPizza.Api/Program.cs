@@ -3,6 +3,8 @@ using Microsoft.OpenApi;
 using NorthwindPizza.Api.DAL.Context;
 using NorthwindPizza.Api.DAL.Repository;
 using NorthwindPizza.Api.DAL.Repository.Interfaces;
+using NorthwindPizza.Api.Services;
+using NorthwindPizza.Api.Services.Interfaces;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ builder.Services.AddDbContext<NorthwindPizzaContext>(options =>
 {
     options.UseSqlite(connectionString);
 });
+
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
