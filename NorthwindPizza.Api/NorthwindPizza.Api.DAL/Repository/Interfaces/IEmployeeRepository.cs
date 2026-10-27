@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using NorthwindPizza.Api.DAL.Models;
 
-namespace NorthwindPizza.Api.DAL.Repository.Interfaces
+namespace NorthwindPizza.Api.DAL.Repository.Interfaces;
+
+public interface IEmployeeRepository
 {
-    public interface IEmployeeRepository
-    {
-    }
+    Task<List<Employee>> GetAllEmployeesAsync();
 }

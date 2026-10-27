@@ -22,8 +22,14 @@ public class CustomerRepository(NorthwindPizzaContext context) : ICustomerReposi
         }
 
         this.context.Customers.Add(customer);
-        await this.context.SaveChangesAsync();
-        return customer;
+        var result = await this.context.SaveChangesAsync();
+        return result > 0 ? customer! : null!;
+    }
+
+    public async Task<List<Customer>> GetCustomersAsync()
+    {
+        var dbResults = await this.context.Customers.ToListAsync();
+        return dbResults!;
     }
 }
 

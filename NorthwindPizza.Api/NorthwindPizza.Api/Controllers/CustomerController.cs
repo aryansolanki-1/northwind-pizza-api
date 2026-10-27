@@ -93,4 +93,29 @@ public class CustomerController(ILogger<CustomerController> logger, ICustomerRep
             Customer = customer.ToDto()
         });
     }
+
+    /// <summary>
+    /// This endpoint will get all of the customers from the database.
+    /// </summary>
+    /// <returns>
+    /// A unit of execution that contains a type of <see cref="ActionResult{TValue}"/> which then contains a type of
+    /// <see cref="GetCustomersResponse"/>.
+    /// </returns>
+    [HttpGet]
+    public async Task<ActionResult<GetCustomersResponse>> GetCustomersAsync()
+    {
+        this.logger.LogInformation("Getting all customers");
+
+        var dbCustomers = await this.customerRepo.GetCustomersAsync();
+
+        if (dbCustomers is null)
+        {
+            return this.NotFound("The customers cannot be found!");
+        }
+
+        return this.StatusCode(StatusCodes.Status200OK, new GetCustomersResponse
+        {
+            Customers = dbCustomers.Select(x => x.ToDto()).ToList()
+        });
+    }
 }

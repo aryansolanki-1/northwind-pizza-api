@@ -9,39 +9,12 @@ public class OrderRepository(NorthwindPizzaContext context) : IOrderRepository
 {
     private readonly NorthwindPizzaContext context = context;
 
-    public async Task<List<Order>> GetOrdersAsync(int? statusId = null)
+    public async Task<List<Order>> GetOrdersAsync()
     {
         IQueryable<Order> query = this.context.Orders.AsNoTracking();
-
-        if (statusId.HasValue)
-        {
-            query = query.Where(o => o.OrderStatusId == statusId.Value);
-        }
 
         return await query
             .OrderByDescending(o => o.OrderDate)
             .ToListAsync();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

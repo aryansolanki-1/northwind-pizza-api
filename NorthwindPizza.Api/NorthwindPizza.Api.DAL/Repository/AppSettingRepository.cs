@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NorthwindPizza.Api.DAL.Repository
+namespace NorthwindPizza.Api.DAL.Repository;
+
+public class AppSettingRepository : IAppSettingRepository
 {
-    public class AppSettingRepository : IAppSettingRepository
-    {
-    }
 }
