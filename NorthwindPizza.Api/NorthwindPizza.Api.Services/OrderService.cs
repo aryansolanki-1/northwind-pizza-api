@@ -51,7 +51,7 @@ namespace NorthwindPizza.Api.Services
                         $"Pizza {requestedItem.PizzaId} not found.");
                 }
 
-                if (!pizza.IsActive)
+                if (!pizza.ToDto().IsActive)
                 {
                     throw new ArgumentException(
                         $"Pizza {requestedItem.PizzaId} is inactive.");
