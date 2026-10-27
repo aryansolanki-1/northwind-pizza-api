@@ -1,9 +1,8 @@
 ﻿using NorthwindPizza.Api.DTO.Models;
 
-namespace NorthwindPizza.Api.DTO.Response
+namespace NorthwindPizza.Api.DTO.Response;
+
+public class GetPizzasResponse
 {
-    public class GetPizzasResponse
-    {
-        public List<Pizza> Pizzas { get; set; } = null!;
-    }
+    public List<Pizza> Pizzas { get; set; } = null!;
 }
