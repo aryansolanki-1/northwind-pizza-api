@@ -9,6 +9,35 @@ public class OrderRepository(NorthwindPizzaContext context) : IOrderRepository
 {
     private readonly NorthwindPizzaContext context = context;
 
+    public async Task<Order> CreateOrderAsync(Order order, List<OrderItem> orderItems)
+    {
+        await using var transaction = await this.context.Database.BeginTransactionAsync();
+
+        try
+        {
+            this.context.Orders.Add(order);
+            await this.context.SaveChangesAsync();
+
+            foreach (var item in orderItems)
+            {
+                item.OrderId = order.OrderId;
+            }
+
+            // Save the order items.
+            this.context.OrderItems.AddRange(orderItems);
+            await this.context.SaveChangesAsync();
+
+            await transaction.CommitAsync();
+
+            return order;
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
+
     public async Task<List<Order>> GetOrdersAsync()
     {
         IQueryable<Order> query = this.context.Orders.AsNoTracking();

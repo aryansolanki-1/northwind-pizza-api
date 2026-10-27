@@ -5,5 +5,7 @@ namespace NorthwindPizza.Api.DAL.Repository.Interfaces
     public interface IOrderRepository
     {
         Task<List<Order>> GetOrdersAsync();
+
+        Task<Order> CreateOrderAsync(Order order, List<OrderItem> orderItems);
     }
 }
