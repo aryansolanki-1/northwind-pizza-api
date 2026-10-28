@@ -54,15 +54,10 @@ public class OrderController(
 
         var orders = await this.orderRepo.GetOrdersAsync();
 
-        if (orders is not null)
+        return this.StatusCode(StatusCodes.Status200OK, new GetOrdersResponse
         {
-            return this.Ok(new GetOrdersResponse
-            {
-                Orders = orders.Select(o => o.ToDto()).ToList()
-            }); 
-        }
-
-        return this.NotFound("The orders could not be found!");
+            Orders = orders.Select(x => x.ToDto()).ToList()
+        });
     }
 
     /// <summary>
@@ -119,7 +114,11 @@ public class OrderController(
             });
         }
 
-        return this.NotFound("The order could not be found!");
+        return this.StatusCode(StatusCodes.Status404NotFound, new ErrorResponse
+        {
+            StatusCode = StatusCodes.Status404NotFound,
+            Message = "The order cannot be found!"
+        });
     }
 
     /// <summary>
@@ -161,12 +160,24 @@ public class OrderController(
                     });
                 }
 
-                return this.NotFound("The order could not be updated");
+                return this.StatusCode(StatusCodes.Status422UnprocessableEntity, new ErrorResponse
+                {
+                    StatusCode = StatusCodes.Status422UnprocessableEntity,
+                    Message = "The order cannot be updated!"
+                });
             }
 
-            return this.NotFound("The order status cannot be found!");
+            return this.StatusCode(StatusCodes.Status404NotFound, new ErrorResponse
+            {
+                StatusCode = StatusCodes.Status404NotFound,
+                Message = "The order status cannot be found!"
+            });
         }
 
-        return this.NotFound("The order could not be found!");
+        return this.StatusCode(StatusCodes.Status404NotFound, new ErrorResponse
+        {
+            StatusCode = StatusCodes.Status404NotFound,
+            Message = "The order cannot be found!"
+        });
     }
 }
