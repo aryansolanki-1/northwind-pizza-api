@@ -38,6 +38,12 @@ public class OrderRepository(NorthwindPizzaContext context) : IOrderRepository
         }
     }
 
+    public async Task<Order?> GetOrderAsync(int id)
+    {
+        var dbResult = await this.context.Orders.FirstOrDefaultAsync(o => o.OrderId == id);
+        return dbResult;
+    }
+
     public async Task<List<Order>> GetOrdersAsync()
     {
         IQueryable<Order> query = this.context.Orders.AsNoTracking();
@@ -45,5 +51,13 @@ public class OrderRepository(NorthwindPizzaContext context) : IOrderRepository
         return await query
             .OrderByDescending(o => o.OrderDate)
             .ToListAsync();
+    }
+
+    public async Task<Order?> UpdateOrderAsync(Order order)
+    {
+        this.context.ChangeTracker.Clear();
+        this.context.Orders.Update(order);
+        var result = await this.context.SaveChangesAsync();
+        return result > 0 ? order : null!;
     }
 }
