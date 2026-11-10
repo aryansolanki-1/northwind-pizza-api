@@ -5,7 +5,11 @@ using NorthwindPizza.Api.Services.Interfaces;
 
 namespace NorthwindPizza.Api.Services;
 
-public class OrderService(IOrderRepository orderRepo, ICustomerRepository customerRepo, IPizzaRepository pizzaRepo) 
+public class OrderService(
+    IOrderRepository orderRepo,
+    ICustomerRepository customerRepo,
+    IPizzaRepository pizzaRepo,
+    IOrderStatusRepository orderStatusRepo) 
     : IOrderService
 {
     private readonly IOrderRepository orderRepo = orderRepo;
@@ -13,6 +17,8 @@ public class OrderService(IOrderRepository orderRepo, ICustomerRepository custom
     private readonly ICustomerRepository customerRepo = customerRepo;
 
     private readonly IPizzaRepository pizzaRepo = pizzaRepo;
+
+    private readonly IOrderStatusRepository orderStatusRepo = orderStatusRepo;
     
     public async Task<DTO.Models.Order?> CreateOrderAsync(CreateOrderRequest request)
     {
@@ -67,12 +73,16 @@ public class OrderService(IOrderRepository orderRepo, ICustomerRepository custom
                 CustomerId = request.CustomerId,
                 OrderStatusId = 1, // Assumes 1 = Pending
                 TotalAmount = totalAmount,
-                OrderDate = DateTime.Now.ToString("G")
+                OrderDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
             var dbOrder = await this.orderRepo.CreateOrderAsync(order, orderItems);
 
-            return dbOrder.ToDto();
+            var dboOrderStatus = await this.orderStatusRepo.GetOrderStatusAsync(dbOrder.OrderStatusId);
+
+            var dbCustomer = await this.customerRepo.GetCustomerAsync(dbOrder.CustomerId);
+
+            return dbOrder.ToDto(dboOrderStatus, dbCustomer!);
         }
 
         throw new KeyNotFoundException("Customer cannot found.");

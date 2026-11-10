@@ -29,6 +29,7 @@ public class CustomerController(ILogger<CustomerController> logger, ICustomerRep
     /// <see cref="GetCustomerResponse"/>.
     /// </returns>
     [HttpPost]
+    [ProducesResponseType(typeof(GetCustomerResponse), StatusCodes.Status201Created)]
     public async Task<ActionResult<GetCustomerResponse>> CreateCustomerAsync([FromBody] CreateCustomerRequest request)
     {
         this.logger.LogInformation("Creating customer");
@@ -87,7 +88,7 @@ public class CustomerController(ILogger<CustomerController> logger, ICustomerRep
     [HttpGet("{id:int}")]
     public async Task<ActionResult<GetCustomerResponse>> GetCustomerByIdAsync([FromRoute] int id)
     {
-        this.logger.LogInformation("Getting customer by ID {CustomerId}", id);
+        this.logger.LogInformation("Getting customer by ID {id}", id);
 
         var customer = await this.customerRepo.GetCustomerAsync(id);
 
