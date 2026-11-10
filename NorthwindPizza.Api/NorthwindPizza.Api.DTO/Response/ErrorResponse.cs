@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NorthwindPizza.Api.DTO.Response;
+﻿namespace NorthwindPizza.Api.DTO.Response;
 
 public class ErrorResponse
 {

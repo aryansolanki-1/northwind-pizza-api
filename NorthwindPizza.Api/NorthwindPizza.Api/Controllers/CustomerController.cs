@@ -115,15 +115,26 @@ public class CustomerController(ILogger<CustomerController> logger, ICustomerRep
     /// <see cref="GetCustomersResponse"/>.
     /// </returns>
     [HttpGet]
+    [ProducesResponseType(typeof(GetCustomersResponse), StatusCodes.Status200OK, Description = "The response that contains the list of all customers.")]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound, Description = "The response that contains the error when the data is not found.")]
     public async Task<ActionResult<GetCustomersResponse>> GetCustomersAsync()
     {
         this.logger.LogInformation("Getting all customers");
 
         var dbCustomers = await this.customerRepo.GetCustomersAsync();
 
-        return this.StatusCode(StatusCodes.Status200OK, new GetCustomersResponse
+        if (dbCustomers != null)
         {
-            Customers = dbCustomers.Select(x => x.ToDto()).ToList()
+            return this.StatusCode(StatusCodes.Status200OK, new GetCustomersResponse
+            {
+                Customers = dbCustomers.Select(x => x.ToDto()).ToList()
+            });
+        }
+
+        return this.StatusCode(StatusCodes.Status404NotFound, new ErrorResponse
+        {
+            StatusCode = StatusCodes.Status404NotFound,
+            Message = "The customers could not be found!"
         });
     }
 }
